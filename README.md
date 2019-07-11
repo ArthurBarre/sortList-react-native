@@ -2,6 +2,6 @@
 
 --
 
-##Tri à bulle -- Bubble Sort
+## Tri à bulle -- Bubble Sort
 
 ## Tri par insertion --  Insertion Sort
