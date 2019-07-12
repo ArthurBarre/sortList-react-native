@@ -11,11 +11,12 @@ import {
   View,
 } from 'react-native';
 import NumberList from './components/NumberList'
-
+import RecursiveFunction from './components/RecursiveFunction'
 const App = () => {
   return (
     <View>
       <NumberList />
+      {/* <RecursiveFunction/> */}
     </View>
   )
 };

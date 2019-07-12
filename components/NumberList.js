@@ -1,46 +1,41 @@
-<script src="http://10.208.7.35:8097"></script>
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 
+const NUMBER_TO_GENERATE = 100;
+const RANGE = 100;
 class NumbersList extends React.Component {
   constructor(props) {
-    super(props)
-    this.numbersArray = [];
-    this.numbersToSort = [];
-    this.newArray = [];
-    this.swapped = Boolean
-    this.numberToGenerate = 10
+    super(props);
+    this.numbersList = [];
+    this.swapped = Boolean;
   }
+
   state = {
     numbers: []
   }
 
-
   generateNumbers() {
-    this.numbers = [];
     this.numbersList = [];
-
-    for (let i = 1; i < this.numberToGenerate + 1; i++) {
-      var randomNumber = Math.floor(Math.random() * (this.numberToGenerate + 1))
-      //this.numbers.push(randomNumber)
+    for (let i = 0; i < NUMBER_TO_GENERATE; i++) {
+      let randomNumber = Math.floor(Math.random() * (RANGE))
       this.numbersList.push({ 'id': i, 'number': randomNumber })
     }
     this.setState({ numbers: this.numbersList })
-    //console.log('this.numbers: ', this.numbers);
   }
 
   sortByBubble = () => {
-    this.swapped = false;
-    let end = this.numbersList.length - 1
-    for (let i = 0; i < end; i++) {
-      if (this.numbersList[i].number > this.numbersList[i + 1].number) {
-        this.swapped = true;
-        let temp = this.numbersList[i];
-        this.numbersList[i] = this.numbersList[i + 1]
-        this.numbersList[i + 1] = temp;
+    for (let end = this.numbersList.length - 1; end > 0; end--) {
+      let swapped = false;
+      for (let j = 0; j < end; j++) {
+        if (this.numbersList[j].number > this.numbersList[j + 1].number) {
+          swapped = true;
+          let temp = this.numbersList[j];
+          this.numbersList[j] = this.numbersList[j + 1]
+          this.numbersList[j + 1] = temp;
+        }
       }
+      if (swapped == false) return
     }
-    end--;
   }
 
   insertionSort = () => {
@@ -50,17 +45,15 @@ class NumbersList extends React.Component {
       let j = i - 1;
       while (j >= 0 && this.numbersList[j].number > keyNumber) {
         this.numbersList[j + 1] = this.numbersList[j];
+        this.numbersList[j] = key;
         j = j - 1;
       }
-      this.numbersList[j + 1] = key;
+      //      this.numbersList[j + 1] = key;
     }
   };
 
   pressSortByBubble() {
-    do {
-      this.sortByBubble()
-    }
-    while (this.swapped)
+    this.sortByBubble()
     this.setState({ numbers: this.numbersList })
   }
   pressSortByInsertion() {
@@ -105,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 30,
+    padding: 20,
     margin: 2,
     flex: 1,
     backgroundColor: '#f70147'
@@ -114,7 +107,7 @@ const styles = StyleSheet.create({
     color: "#0e0047",
     fontSize: 20,
     alignSelf: 'center',
-    paddingLeft: 100
+    paddingLeft: 20
   },
   buttons: {
     width: Dimensions.get('window').width,
