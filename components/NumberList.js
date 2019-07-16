@@ -3,15 +3,35 @@ import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from
 
 const NUMBER_TO_GENERATE = 100;
 const RANGE = 100;
+
+function LinkedList() {
+  this.head = null;
+  this.tail = null;
+  this.length = 0;
+}
+function node(data, next, prev) {
+  this.data = data;
+  this.next = next;
+  this.prev = prev;
+}
+LinkedList.prototype.addNodeToTail = function (data) {
+  const newNode = new node(data, null, this.tail);
+  if (this.tail) this.tail.next = newNode;
+  else this.head = newNode;
+  this.tail = newNode;
+}
+
 class NumbersList extends React.Component {
   constructor(props) {
     super(props);
     this.numbersList = [];
+    this.list = new LinkedList();
     this.swapped = Boolean;
   }
 
   state = {
-    numbers: []
+    numbers: [],
+    linkedList: {}
   }
 
   generateNumbers() {
@@ -19,8 +39,13 @@ class NumbersList extends React.Component {
     for (let i = 0; i < NUMBER_TO_GENERATE; i++) {
       let randomNumber = Math.floor(Math.random() * (RANGE))
       this.numbersList.push({ 'id': i, 'number': randomNumber })
+      // this.list.addNodeToTail(randomNumber)
+      // this.list.length++
     }
     this.setState({ numbers: this.numbersList })
+    // this.setState({ numbers: this.list })
+    // console.log(this.list)
+    // console.log(this.list.length)
   }
 
   sortByBubble = () => {
@@ -32,6 +57,21 @@ class NumbersList extends React.Component {
           let temp = this.numbersList[j];
           this.numbersList[j] = this.numbersList[j + 1]
           this.numbersList[j + 1] = temp;
+        }
+      }
+      if (swapped == false) return
+    }
+  }
+
+  sortByBubbleInLL = () => {
+    for (let end = this.list.length - 1; end > 0; end--) {
+      let swapped = false;
+      for (let j = 0; j < end; j++) {
+        if (this.list[j].next > this.list[j + 1].next) {
+          swapped = true;
+          let temp = this.list[j];
+          this.list[j] = this.list[j + 1]
+          this.list[j + 1] = temp;
         }
       }
       if (swapped == false) return
@@ -54,7 +94,9 @@ class NumbersList extends React.Component {
 
   pressSortByBubble() {
     this.sortByBubble()
+    //this.sortByBubbleLL()
     this.setState({ numbers: this.numbersList })
+    //this.setState({ numbers: this.list })
   }
   pressSortByInsertion() {
     this.insertionSort();
@@ -87,6 +129,15 @@ class NumbersList extends React.Component {
             ))
           }
         </ScrollView>
+        {/* <ScrollView>
+          {
+            this.state.numbers.map((item, index) => (
+              <View key={item.id} style={styles.item}>
+                <Text style={styles.itemIn}>{item.number}</Text>
+              </View>
+            ))
+          }
+        </ScrollView> */}
       </View>
     )
   }
@@ -107,7 +158,7 @@ const styles = StyleSheet.create({
     color: "#0e0047",
     fontSize: 20,
     alignSelf: 'center',
-    paddingLeft: 20
+
   },
   buttons: {
     width: Dimensions.get('window').width,

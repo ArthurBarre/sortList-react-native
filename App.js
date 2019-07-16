@@ -8,15 +8,17 @@
 
 import React, { Fragment } from 'react';
 import {
-  View,
+  View, StatusBar
 } from 'react-native';
 import NumberList from './components/NumberList'
-import RecursiveFunction from './components/RecursiveFunction'
+import RecursiveFunction from './components/RecursiveFunction';
+import BestList from './components/BestList'
 const App = () => {
   return (
     <View>
+      {/* <RecursiveFunction /> */}
       <NumberList />
-      {/* <RecursiveFunction/> */}
+      {/* <BestList /> */}
     </View>
   )
 };
