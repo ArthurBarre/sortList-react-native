@@ -1,78 +1,84 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'; import { View } from 'react-native';
+class NewList extends React.Component { render() { return (<View></View>) } } export default NewList;
 
+const n = 3;
+const RANGE = 10;
+var length = 0
 
-function LinkedList() '{
-var length = 0;
-var head = null;
-
-var Node = function (data) {
-  this.data = data;
-  this.next = null;
-};
-this.size = function () {
-  console.log('------------------------------------');
-  console.log(length);
-  console.log('------------------------------------');;
+function node(value, next) {
+  return { value: value, next: next };
 }
-this.head = function () {
-  return head;
+function head(node) {
+  if (node) return node.value;
+}
+function tail(node) {
+  if (node) return node.next;
+}
+// function generateList(n) {
+//   length = length + 1;
+//   let randomNumber = Math.floor(Math.random() * (RANGE))
+//   if (n > 0) return node(randomNumber, generateList(n - 1));
+//   else return null;
+// }
+function generateList(n) {
+  for (let i = 0; i < n; i++) {
+    var randomNumber = i;
+  }
+  if (n > 0) return node(randomNumber, generateList(n - 1));
+  else return null;
 }
 
-this.add = function (data) {
-  var node = new Node(data);
-  //si la liste est vide on place le premier add au début de la liste
-  if (head === null) {
-    head = node
-    //sinon on  parcourt la liste jusqu'a trouver le premier el qui n' pas de next 
+function print(node) {
+  if (!node) console.log("end");
+  else {
+    //current node
+    console.log(head(node));
+    //recursive function with the next return element 
+    print(tail(node));
+  }
+}
+//
+function count(node) {
+  if (!node) return 0;
+  return 1 + count(tail(node));
+}
+// var nb=count(list)
+function sum(node) {
+  if (!node) return 0;
+  return head(node) + sum(tail(node));
+}
+//
+function conc(p, q) {
+  if (!p) {
+    return q
   } else {
-    var currentNode = head
-    //tant qu'un el de la liste a un "next" on continue de parcourir 
-    while (currentNode.next) {
-      currentNode = currentNode.next
-    }
-    currentNode.next = node;
-  }
-  length++;
-};
-
-console.log
-  // this.remove = (data) => {
-  //   var currentNode = head;
-  //   var previousNode;
-  //   if (currentNode.data === data) {
-  //     head = currentNode.next
-  //   } else {
-  //     while (currentNode.data !== data) {
-
-  //     }
-  //   }
-  //   length--;
-  // };
-}
-
-// var test = new LinkedList;
-// test.add(12)
-
-class ListAlgo extends React.Component {
-  constructor() {
-    this.conga = new LinkedList();
-  }
-
-  componentDidMount() {
-    this.conga.add(1223)
-    this.conga.size()
-
-  }
-
-  render() {
-    return (
-      <View>
-        <Text>
-          Hey
-        </Text>
-      </View>
-    )
+    return node(head(p), conc(tail(p), q))
   }
 }
-export default ListAlgo;
+function dup(p) {
+  if (!p) {
+    return p = oldP;
+  } else {
+    return node(head(p), dup(tail(p)))
+  }
+}
+function append(p, a) {
+  if (!p) {
+    return node(a, null)
+  }
+  else {
+    node(head(p), append(tail(p), a))
+  }
+}
+var a = 1;
+var p = generateList(n);
+const oldP = p
+//console.log('p: ', p);
+var q = generateList(n + 10)
+//console.log('q: ', q)
+var concVal = conc(p, q)
+console.log('concVal: ', concVal);
+var dupVal = dup(p)
+console.log('dupVal: ', dupVal);
+var appendVal = append(p, a)
+console.log('appendVal : ' + appendVal)
