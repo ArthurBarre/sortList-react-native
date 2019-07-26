@@ -20,6 +20,7 @@ function tail(node) {
 //   if (n > 0) return node(randomNumber, generateList(n - 1));
 //   else return null;
 // }
+
 function generateList(n) {
   for (let i = 0; i < n; i++) {
     var number = i;
@@ -84,6 +85,8 @@ function appendAndSort(p, a) {
     return node(a, null)
   }
 }
+//
+
 
 function convertObjToArr(obj) {
   let arr2 = [];
@@ -97,13 +100,13 @@ function convertObjToArr(obj) {
 var arr2 = [];
 function convertObjToArrRec(obj) {
   if (obj != null) {
-    arr2.push(head(obj))
+    arr2.push(head(obj));
     convertObjToArrRec(tail(obj));
   }
   return arr2;
 }
 //
-var arr = [
+const arr = [
   1, 2, 3, 4, 5, 6, 7, 8, 9
 ];
 //
@@ -139,16 +142,16 @@ var q = generateList(n + 10);
 const a = 12;
 const w = 4.5;
 //concatenate function
-var concVal = conc(p, q)
+var concVal = conc(p, q);
 console.log('concVal: ', concVal);
 //duplicate function 
-var dupVal = dup(p)
+var dupVal = dup(p);
 console.log('dupVal: ', dupVal);
 //append function
 var appendVal = append(p, a);
 console.log('appendVal: ', appendVal);
 //append and sort function 
-var appendAndSortVal = appendAndSort(p, w)
+var appendAndSortVal = appendAndSort(p, w);
 console.log('appendAndSortVal: ', appendAndSortVal);
 //convert list to array
 var arr2 = convertObjToArr(obj);

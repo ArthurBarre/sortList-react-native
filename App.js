@@ -12,16 +12,19 @@ import {
 } from 'react-native';
 import NumberList from './components/NumberList'
 import RecursiveFunction from './components/RecursiveFunction';
-//import BestList from './components/BestList';
+// import BestList from './components/BestList';
 import NumberLinkedList from './components/NumberLinkedList';
-import List from './components/List';
+// import List from './components/List';
+import InsertionSort from './components/InsertionSort'
+
 const App = () => {
   return (
     <View>
+      <InsertionSort />
       {/* <RecursiveFunction /> */}
       {/* <NumberList /> */}
       {/* <NumberLinkedList /> */}
-      <List />
+      {/*<List />*/}
       {/* <BestList /> */}
     </View>
   )
